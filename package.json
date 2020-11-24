@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "chalk": "^2.4.1",
+    "chalk": "^4.1.0",
     "class-validator": "^0.12.2",
     "class-validator-jsonschema": "^2.0.3",
     "commander": "^2.19.0",
