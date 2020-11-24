@@ -1,5 +1,5 @@
 import glob from 'glob';
-import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
+import { MicroframeworkLoader, MicroframeworkSettings } from 'src/utils/framework';
 
 import { env } from '../env';
 
