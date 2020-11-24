@@ -1,4 +1,3 @@
-import * as express from 'express';
 import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
 
@@ -14,8 +13,8 @@ export class AuthService {
         @OrmRepository() private userRepository: UserRepository
     ) { }
 
-    public parseBasicAuthFromRequest(req: express.Request): { username: string, password: string } {
-        const authorization = req.header('authorization');
+    public parseBasicAuthFromRequest(req: Request): { username: string, password: string } {
+        const authorization = req.headers.get('authorization');
 
         if (authorization && authorization.split(' ')[0] === 'Basic') {
             this.log.info('Credentials provided by the client');
