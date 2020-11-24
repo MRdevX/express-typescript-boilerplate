@@ -1,13 +1,18 @@
 import * as bcrypt from 'bcryptjs';
 import { Exclude } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+    BeforeInsert,
+    Column,
+    Entity,
+    OneToMany,
+    PrimaryColumn,
+} from 'typeorm';
 
 import { Pet } from './Pet';
 
 @Entity()
 export class User {
-
     public static hashPassword(password: string): Promise<string> {
         return new Promise((resolve, reject) => {
             bcrypt.hash(password, 10, (err, hash) => {
@@ -19,7 +24,10 @@ export class User {
         });
     }
 
-    public static comparePassword(user: User, password: string): Promise<boolean> {
+    public static comparePassword(
+        user: User,
+        password: string,
+    ): Promise<boolean> {
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, user.password, (err, res) => {
                 resolve(res === true);
@@ -51,7 +59,7 @@ export class User {
     @Column()
     public username: string;
 
-    @OneToMany(type => Pet, pet => pet.user)
+    @OneToMany((type) => Pet, (pet) => pet.user)
     public pets: Pet[];
 
     public toString(): string {
@@ -62,5 +70,4 @@ export class User {
     public async hashPassword(): Promise<void> {
         this.password = await User.hashPassword(this.password);
     }
-
 }

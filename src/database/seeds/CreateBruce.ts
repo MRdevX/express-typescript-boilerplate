@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { Factory, Seeder} from 'typeorm-seeding';
+import { Factory, Seeder } from 'typeorm-seeding';
 import * as uuid from 'uuid';
 
 import { User } from '../../../src/api/models/User';
@@ -41,5 +41,4 @@ export class CreateBruce implements Seeder {
         user.password = '1234';
         return await em.save(user);
     }
-
 }

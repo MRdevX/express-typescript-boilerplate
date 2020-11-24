@@ -9,19 +9,14 @@
             // "npm run build"
             "taskName": "build",
             "isBuildCommand": true,
-            "args": [
-                "run",
-                "build"
-            ]
+            "args": ["run", "build"]
         },
         {
             // Test task, Cmd+Shift+T
             // "npm test"
             "taskName": "test",
             "isTestCommand": true,
-            "args": [
-                "test"
-            ]
+            "args": ["test"]
         }
     ]
 }

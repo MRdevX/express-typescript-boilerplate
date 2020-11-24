@@ -1,7 +1,16 @@
 import { Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsUUID, ValidateNested } from 'class-validator';
 import {
-    Authorized, Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put, Req
+    // Authorized,
+    Body,
+    Delete,
+    Get,
+    JsonController,
+    OnUndefined,
+    Param,
+    Post,
+    Put,
+    Req,
 } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
@@ -39,14 +48,11 @@ class CreateUserBody extends BaseUser {
     public password: string;
 }
 
-@Authorized()
+// @Authorized()
 @JsonController('/users')
 @OpenAPI({ security: [{ basicAuth: [] }] })
 export class UserController {
-
-    constructor(
-        private userService: UserService
-    ) { }
+    constructor(private userService: UserService) {}
 
     @Get()
     @ResponseSchema(UserResponse, { isArray: true })
@@ -82,7 +88,10 @@ export class UserController {
 
     @Put('/:id')
     @ResponseSchema(UserResponse)
-    public update(@Param('id') id: string, @Body() body: BaseUser): Promise<User> {
+    public update(
+        @Param('id') id: string,
+        @Body() body: BaseUser,
+    ): Promise<User> {
         const user = new User();
         user.email = body.email;
         user.firstName = body.firstName;
@@ -96,5 +105,4 @@ export class UserController {
     public delete(@Param('id') id: string): Promise<void> {
         return this.userService.delete(id);
     }
-
 }

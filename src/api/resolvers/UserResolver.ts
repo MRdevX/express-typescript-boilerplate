@@ -7,22 +7,20 @@ import { UserService } from '../services/UserService';
 import { User } from '../types/User';
 
 @Service()
-@Resolver(of => User)
+@Resolver((of) => User)
 export class UserResolver {
-
     constructor(
         private userService: UserService,
-        private petService: PetService
-        ) {}
+        private petService: PetService,
+    ) {}
 
-    @Query(returns => [User])
+    @Query((returns) => [User])
     public users(): Promise<any> {
-      return this.userService.find();
+        return this.userService.find();
     }
 
     @FieldResolver()
     public async pets(@Root() user: UserModel): Promise<any> {
         return this.petService.findByUser(user);
     }
-
 }

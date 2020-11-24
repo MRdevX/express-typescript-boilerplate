@@ -1,5 +1,13 @@
 import DataLoader from 'dataloader';
-import { Arg, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
+import {
+    Arg,
+    Ctx,
+    FieldResolver,
+    Mutation,
+    Query,
+    Resolver,
+    Root,
+} from 'type-graphql';
 import { Service } from 'typedi';
 
 import { DLoader } from '../../decorators/DLoader';
@@ -12,22 +20,21 @@ import { PetInput } from '../types/input/PetInput';
 import { Pet } from '../types/Pet';
 
 @Service()
-@Resolver(of => Pet)
+@Resolver((of) => Pet)
 export class PetResolver {
-
     constructor(
         private petService: PetService,
         @Logger(__filename) private log: LoggerInterface,
-        @DLoader(UserModel) private userLoader: DataLoader<string, UserModel>
-    ) { }
+        @DLoader(UserModel) private userLoader: DataLoader<string, UserModel>,
+    ) {}
 
-    @Query(returns => [Pet])
+    @Query((returns) => [Pet])
     public pets(@Ctx() { requestId }: Context): Promise<PetModel[]> {
         this.log.info(`{${requestId}} Find all users`);
         return this.petService.find();
     }
 
-    @Mutation(returns => Pet)
+    @Mutation((returns) => Pet)
     public async addPet(@Arg('pet') pet: PetInput): Promise<PetModel> {
         const newPet = new PetModel();
         newPet.name = pet.name;
@@ -50,5 +57,4 @@ export class PetResolver {
     //         key: 'userId',
     //         multiple: true,
     //     }),
-
 }

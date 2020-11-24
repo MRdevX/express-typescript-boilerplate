@@ -6,8 +6,7 @@ import { Pet } from './Pet';
     description: 'User object.',
 })
 export class User {
-
-    @Field(type => ID)
+    @Field((type) => ID)
     public id: string;
 
     @Field({
@@ -25,9 +24,8 @@ export class User {
     })
     public email: string;
 
-    @Field(type => [Pet], {
+    @Field((type) => [Pet], {
         description: 'A list of pets which belong to the user.',
     })
     public pets: Pet[];
-
 }

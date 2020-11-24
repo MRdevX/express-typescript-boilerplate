@@ -6,7 +6,9 @@ import {
 
 import { env } from '../env';
 
-export const homeLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
+export const homeLoader: MicroframeworkLoader = (
+    settings: MicroframeworkSettings | undefined,
+) => {
     if (settings) {
         const expressApp = settings.getData('express_app');
         expressApp.get(
@@ -17,8 +19,7 @@ export const homeLoader: MicroframeworkLoader = (settings: MicroframeworkSetting
                     version: env.app.version,
                     description: env.app.description,
                 });
-            }
+            },
         );
-
     }
 };
