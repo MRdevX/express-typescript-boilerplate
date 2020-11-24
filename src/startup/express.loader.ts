@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-export default ({ app }: { app: express.Application }) => {
+export default async ({ app }: { app: express.Application }) => {
   /**
    * Health Check endpoints
    * @TODO Explain why they are here
