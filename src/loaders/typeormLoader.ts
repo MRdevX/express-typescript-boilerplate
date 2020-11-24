@@ -1,4 +1,7 @@
-import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
+import {
+    MicroframeworkLoader,
+    MicroframeworkSettings,
+} from 'src/utils/framework';
 import { createConnection, getConnectionOptions } from 'typeorm';
 
 import { env } from '../env';

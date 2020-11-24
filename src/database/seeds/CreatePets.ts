@@ -1,10 +1,13 @@
 import { Connection } from 'typeorm';
-import { Factory, Seed, times } from 'typeorm-seeding';
+import { Factory, Seeder, times } from 'typeorm-seeding';
 
 import { Pet } from '../../../src/api/models/Pet';
 import { User } from '../../../src/api/models/User';
 
-export class CreatePets implements Seed {
+export class CreatePets implements Seeder {
+    run(factory: Factory, connection: Connection): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
 
     public async seed(factory: Factory, connection: Connection): Promise<any> {
         const em = connection.createEntityManager();
