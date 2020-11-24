@@ -1,6 +1,6 @@
 import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
     EventDispatcher,
@@ -31,7 +31,7 @@ export class UserService {
 
     public async create(user: User): Promise<User> {
         this.log.info('Create a new user => ', user.toString());
-        user.id = uuid.v1();
+        user.id = uuidv4();
         const newUser = await this.userRepository.save(user);
         this.eventDispatcher.dispatch(events.user.created, newUser);
         return newUser;

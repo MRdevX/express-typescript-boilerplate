@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsUUID, ValidateNested } from 'class-validator';
 import {
-    Authorized,
+    // Authorized,
     Body,
     Delete,
     Get,
@@ -48,7 +48,7 @@ class CreateUserBody extends BaseUser {
     public password: string;
 }
 
-@Authorized()
+// @Authorized()
 @JsonController('/users')
 @OpenAPI({ security: [{ basicAuth: [] }] })
 export class UserController {
