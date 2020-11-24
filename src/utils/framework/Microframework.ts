@@ -96,7 +96,7 @@ export class Microframework {
      * Bootstraps microframework and loads all loaders.
      */
     public bootstrap(): Promise<this> {
-        this.frameworkSettings = new MicroframeworkSettings(this.allConfiguration);
+        this.frameworkSettings = new MicroframeworkSettings();
         const bootstrapTime = +new Date();
 
         return this.generateLogo()
@@ -173,7 +173,7 @@ export class Microframework {
     private generateLogo(): Promise<string> {
         return new Promise((ok, fail) => {
             if (!this.frameworkConfig || !this.frameworkConfig.logo) {
-                return ok();
+                return ok('success');
             }
 
             try {
