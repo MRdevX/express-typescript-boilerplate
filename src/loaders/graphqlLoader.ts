@@ -11,7 +11,9 @@ import Container from 'typedi';
 import { env } from '../env';
 import { getErrorCode, getErrorMessage, handlingErrors } from '../lib/graphql';
 
-export const graphqlLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
+export const graphqlLoader: MicroframeworkLoader = async (
+    settings: MicroframeworkSettings | undefined,
+) => {
     if (settings && env.graphql.enabled) {
         const expressApp = settings.getData('express_app');
 
@@ -24,26 +26,29 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
         handlingErrors(schema);
 
         // Add graphql layer to the express app
-        expressApp.use(env.graphql.route, (request: express.Request, response: express.Response) => {
+        expressApp.use(
+            env.graphql.route,
+            (request: express.Request, response: express.Response) => {
+                // Build GraphQLContext
+                const requestId = Math.floor(
+                    Math.random() * Number.MAX_SAFE_INTEGER,
+                ); // uuid-like
+                const container = Container.of(requestId); // get scoped container
+                const context = { requestId, container, request, response }; // create our context
+                container.set('context', context); // place context or other data in container
 
-            // Build GraphQLContext
-            const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
-            const container = Container.of(requestId); // get scoped container
-            const context = { requestId, container, request, response }; // create our context
-            container.set('context', context); // place context or other data in container
-
-            // Setup GraphQL Server
-            GraphQLHTTP({
-                schema,
-                context,
-                graphiql: env.graphql.editor,
-                formatError: error => ({
-                    code: getErrorCode(error.message),
-                    message: getErrorMessage(error.message),
-                    path: error.path,
-                }),
-            })(request, response);
-        });
-
+                // Setup GraphQL Server
+                GraphQLHTTP({
+                    schema,
+                    context,
+                    graphiql: env.graphql.editor,
+                    formatError: (error) => ({
+                        code: getErrorCode(error.message),
+                        message: getErrorMessage(error.message),
+                        path: error.path,
+                    }),
+                })(request, response);
+            },
+        );
     }
 };

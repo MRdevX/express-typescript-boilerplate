@@ -1,6 +1,14 @@
 import { IsNotEmpty, IsNumber, IsUUID, ValidateNested } from 'class-validator';
 import {
-    Authorized, Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put
+    Authorized,
+    Body,
+    Delete,
+    Get,
+    JsonController,
+    OnUndefined,
+    Param,
+    Post,
+    Put,
 } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
@@ -34,10 +42,7 @@ class CreatePetBody extends BasePet {
 @JsonController('/pets')
 @OpenAPI({ security: [{ basicAuth: [] }] })
 export class PetController {
-
-    constructor(
-        private petService: PetService
-    ) { }
+    constructor(private petService: PetService) {}
 
     @Get()
     @ResponseSchema(PetResponse, { isArray: true })
@@ -65,7 +70,10 @@ export class PetController {
 
     @Put('/:id')
     @ResponseSchema(PetResponse)
-    public update(@Param('id') id: string, @Body() body: BasePet): Promise<Pet> {
+    public update(
+        @Param('id') id: string,
+        @Body() body: BasePet,
+    ): Promise<Pet> {
         const pet = new Pet();
         pet.age = body.age;
         pet.name = body.name;
@@ -77,5 +85,4 @@ export class PetController {
     public delete(@Param('id') id: string): Promise<void> {
         return this.petService.delete(id);
     }
-
 }

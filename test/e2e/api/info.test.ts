@@ -4,13 +4,12 @@ import { env } from '../../../src/env';
 import { bootstrapApp, BootstrapSettings } from '../utils/bootstrap';
 
 describe('/api', () => {
-
     // -------------------------------------------------------------------------
     // Setup up
     // -------------------------------------------------------------------------
 
     let settings: BootstrapSettings;
-    beforeAll(async () => settings = await bootstrapApp());
+    beforeAll(async () => (settings = await bootstrapApp()));
 
     // -------------------------------------------------------------------------
     // Test cases
@@ -25,5 +24,4 @@ describe('/api', () => {
         expect(response.body.version).toBe(env.app.version);
         done();
     });
-
 });

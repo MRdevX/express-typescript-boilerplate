@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, TableForeignKey } from 'typeorm';
 
-export class AddUserRelationToPetTable1512663990063 implements MigrationInterface {
-
+export class AddUserRelationToPetTable1512663990063
+    implements MigrationInterface {
     private tableForeignKey = new TableForeignKey({
         name: 'fk_user_pet',
         columnNames: ['user_id'],
@@ -17,5 +17,4 @@ export class AddUserRelationToPetTable1512663990063 implements MigrationInterfac
     public async down(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.dropForeignKey('pet', this.tableForeignKey);
     }
-
 }

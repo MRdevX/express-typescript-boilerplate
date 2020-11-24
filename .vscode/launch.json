@@ -10,9 +10,7 @@
             "name": "Debug",
             "program": "${workspaceRoot}/dist/app.js",
             "smartStep": true,
-            "outFiles": [
-                "../dist/**/*.js"
-            ],
+            "outFiles": ["../dist/**/*.js"],
             "protocol": "inspector",
             "env": {
                 "NODE_ENV": "production"

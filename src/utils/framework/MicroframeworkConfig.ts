@@ -2,7 +2,6 @@
  * Microframework configuration.
  */
 export interface MicroframeworkConfig {
-
     /**
      * Logo needs to be used before application launches.
      * To use logo ansi-art module should be installed.
@@ -27,5 +26,4 @@ export interface MicroframeworkConfig {
      * that small amount of time is passed and they all are launched before framework bootstrap all modules.
      */
     bootstrapTimeout?: number;
-
 }

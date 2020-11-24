@@ -1,4 +1,8 @@
-import { MicroframeworkConfig, MicroframeworkLoader, MicroframeworkSettings } from '.';
+import {
+    MicroframeworkConfig,
+    MicroframeworkLoader,
+    MicroframeworkSettings,
+} from '.';
 import { MicroframeworkAsciiArtNotInstalledError } from './error/MicroframeworkAsciiArtNotInstalledError';
 import { MicroframeworkNotBootstrappedError } from './error/MicroframeworkNotBootstrappedError';
 
@@ -6,7 +10,6 @@ import { MicroframeworkNotBootstrappedError } from './error/MicroframeworkNotBoo
  * Launches microframework.
  */
 export class Microframework {
-
     // -------------------------------------------------------------------------
     // Private Properties
     // -------------------------------------------------------------------------
@@ -39,19 +42,25 @@ export class Microframework {
     /**
      * Configs microframework.
      */
-    public config(config: MicroframeworkConfig|string|string[]): this {
-
+    public config(config: MicroframeworkConfig | string | string[]): this {
         const appRootDir = require('app-root-path').path;
         if (config instanceof String) {
-            this.allConfiguration = require(appRootDir + '/' + config + '.json') || {};
+            this.allConfiguration =
+                require(appRootDir + '/' + config + '.json') || {};
             if (this.allConfiguration.microframework) {
                 this.frameworkConfig = this.allConfiguration.microframework;
             }
-
-        } else if (config instanceof Array) { // string[]
+        } else if (config instanceof Array) {
+            // string[]
             if (config.length > 0) {
                 this.allConfiguration = {};
-                Object.assign(this.allConfiguration, ...config.map(conf => require(appRootDir + '/' + conf + '.json') || {}));
+                Object.assign(
+                    this.allConfiguration,
+                    ...config.map(
+                        (conf) =>
+                            require(appRootDir + '/' + conf + '.json') || {},
+                    ),
+                );
             }
         } else {
             this.frameworkConfig = config as MicroframeworkConfig;
@@ -81,8 +90,10 @@ export class Microframework {
     /**
      * Registers loaders in the framework.
      */
-    public registerLoaders(loaders: any /* MicroframeworkModule[]|MicroframeworkModule[][] */): this {
-        ((loaders as any[]) || []).forEach(loader => {
+    public registerLoaders(
+        loaders: any /* MicroframeworkModule[]|MicroframeworkModule[][] */,
+    ): this {
+        ((loaders as any[]) || []).forEach((loader) => {
             if (loader instanceof Array) {
                 this.loaders.push(...loader);
             } else {
@@ -100,20 +111,33 @@ export class Microframework {
         const bootstrapTime = +new Date();
 
         return this.generateLogo()
-            .then(logo => {
-                if (logo) { console.log(logo); }
+            .then((logo) => {
+                if (logo) {
+                    console.log(logo);
+                }
                 return this.createBootstrapTimeout();
-
-            }).then(() => {
-                return this.runInSequence(this.loaders, loader => {
+            })
+            .then(() => {
+                return this.runInSequence(this.loaders, (loader) => {
                     const loaderResult = loader(this.frameworkSettings);
-                    return loaderResult instanceof Promise ? loaderResult : Promise.resolve();
+                    return loaderResult instanceof Promise
+                        ? loaderResult
+                        : Promise.resolve();
                 });
-
-            }).then(() => {
-                if (this.frameworkConfig && this.frameworkConfig.showBootstrapTime) {
+            })
+            .then(() => {
+                if (
+                    this.frameworkConfig &&
+                    this.frameworkConfig.showBootstrapTime
+                ) {
                     // tslint:disable-next-line: max-line-length
-                    console.log(`Application is up and running. It took ${+new Date() - bootstrapTime - (this.frameworkConfig.bootstrapTimeout || 0)} ms to bootstrap the app.`);
+                    console.log(
+                        `Application is up and running. It took ${
+                            +new Date() -
+                            bootstrapTime -
+                            (this.frameworkConfig.bootstrapTimeout || 0)
+                        } ms to bootstrap the app.`,
+                    );
                 }
 
                 return this;
@@ -128,10 +152,15 @@ export class Microframework {
             throw new MicroframeworkNotBootstrappedError();
         }
 
-        return this.runInSequence(this.frameworkSettings.getShutdownHandlers(), handler => {
-            const handlerResult = handler();
-            return handlerResult instanceof Promise ? handlerResult : Promise.resolve();
-        }).then(() => this);
+        return this.runInSequence(
+            this.frameworkSettings.getShutdownHandlers(),
+            (handler) => {
+                const handlerResult = handler();
+                return handlerResult instanceof Promise
+                    ? handlerResult
+                    : Promise.resolve();
+            },
+        ).then(() => this);
     }
 
     /**
@@ -154,17 +183,24 @@ export class Microframework {
      * Runs given callback that returns promise for each item in the given collection in order.
      * Operations executed after each other, right after previous promise being resolved.
      */
-    private runInSequence<T, U>(collection: T[], callback: (item: T) => Promise<U>): Promise<U[]> {
+    private runInSequence<T, U>(
+        collection: T[],
+        callback: (item: T) => Promise<U>,
+    ): Promise<U[]> {
         const results: U[] = [];
-        return collection.reduce((promise, item) => {
-            return promise.then(() => {
-                return callback(item);
-            }).then(result => {
-                results.push(result);
+        return collection
+            .reduce((promise, item) => {
+                return promise
+                    .then(() => {
+                        return callback(item);
+                    })
+                    .then((result) => {
+                        results.push(result);
+                    });
+            }, Promise.resolve())
+            .then(() => {
+                return results;
             });
-        }, Promise.resolve()).then(() => {
-            return results;
-        });
     }
 
     /**
@@ -178,8 +214,11 @@ export class Microframework {
 
             try {
                 const asciiArt = require('ascii-art');
-                asciiArt.font(this.frameworkConfig.logo, 'Doom', (logo: string) => ok(logo.trim() + '\r\n'));
-
+                asciiArt.font(
+                    this.frameworkConfig.logo,
+                    'Doom',
+                    (logo: string) => ok(logo.trim() + '\r\n'),
+                );
             } catch (err) {
                 fail(new MicroframeworkAsciiArtNotInstalledError());
             }
@@ -191,12 +230,14 @@ export class Microframework {
      */
     private createBootstrapTimeout(): Promise<void> {
         return new Promise<void>((ok, fail) => {
-            if (!this.frameworkConfig || !this.frameworkConfig.bootstrapTimeout) {
+            if (
+                !this.frameworkConfig ||
+                !this.frameworkConfig.bootstrapTimeout
+            ) {
                 return ok();
             }
 
             setTimeout(ok, this.frameworkConfig.bootstrapTimeout);
         });
     }
-
 }

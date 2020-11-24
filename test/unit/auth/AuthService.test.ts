@@ -7,7 +7,6 @@ import { LogMock } from '../lib/LogMock';
 import { RepositoryMock } from '../lib/RepositoryMock';
 
 describe('AuthService', () => {
-
     let authService: AuthService;
     let userRepository: RepositoryMock<User>;
     let log: LogMock;
@@ -36,7 +35,10 @@ describe('AuthService', () => {
             });
             const token = authService.parseBasicAuthFromRequest(req);
             expect(token).toBeUndefined();
-            expect(log.infoMock).toBeCalledWith('No credentials provided by the client', []);
+            expect(log.infoMock).toBeCalledWith(
+                'No credentials provided by the client',
+                [],
+            );
         });
 
         test('Should return undefined if there is a invalid basic authorization header', () => {
@@ -47,9 +49,10 @@ describe('AuthService', () => {
             });
             const token = authService.parseBasicAuthFromRequest(req);
             expect(token).toBeUndefined();
-            expect(log.infoMock).toBeCalledWith('No credentials provided by the client', []);
+            expect(log.infoMock).toBeCalledWith(
+                'No credentials provided by the client',
+                [],
+            );
         });
-
     });
-
 });

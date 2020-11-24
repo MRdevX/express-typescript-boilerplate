@@ -1,4 +1,4 @@
-import {ShutdownHandler} from './ShutdownHandler';
+import { ShutdownHandler } from './ShutdownHandler';
 
 /**
  * Bootstrap settings used across all loader.
@@ -6,7 +6,6 @@ import {ShutdownHandler} from './ShutdownHandler';
  * Also can be used to store and share data across modules.
  */
 export class MicroframeworkSettings {
-
     // -------------------------------------------------------------------------
     // Private Properties
     // -------------------------------------------------------------------------
@@ -59,7 +58,6 @@ export class MicroframeworkSettings {
      * Gets all shutdown handlers - special functions that will be executed when framework is shutdown.
      */
     public getShutdownHandlers(): ShutdownHandler[] {
-        return this.shutdownHandlers.map(handlers => handlers);
+        return this.shutdownHandlers.map((handlers) => handlers);
     }
-
 }

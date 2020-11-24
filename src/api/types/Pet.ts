@@ -6,8 +6,7 @@ import { User } from './User';
     description: 'Pet object.',
 })
 export class Pet {
-
-    @Field(type => ID)
+    @Field((type) => ID)
     public id: string;
 
     @Field({
@@ -15,14 +14,13 @@ export class Pet {
     })
     public name: string;
 
-    @Field(type => Int, {
+    @Field((type) => Int, {
         description: 'The age of the pet in years.',
     })
     public age: number;
 
-    @Field(type => User, {
+    @Field((type) => User, {
         nullable: true,
     })
     public owner: User;
-
 }

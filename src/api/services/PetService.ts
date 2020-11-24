@@ -2,7 +2,10 @@ import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
 import uuid from 'uuid';
 
-import { EventDispatcher, EventDispatcherInterface } from '../../decorators/EventDispatcher';
+import {
+    EventDispatcher,
+    EventDispatcherInterface,
+} from '../../decorators/EventDispatcher';
 import { Logger, LoggerInterface } from '../../decorators/Logger';
 import { Pet } from '../models/Pet';
 import { User } from '../models/User';
@@ -11,12 +14,11 @@ import { events } from '../subscribers/events';
 
 @Service()
 export class PetService {
-
     constructor(
         @OrmRepository() private petRepository: PetRepository,
         @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
-        @Logger(__filename) private log: LoggerInterface
-    ) { }
+        @Logger(__filename) private log: LoggerInterface,
+    ) {}
 
     public find(): Promise<Pet[]> {
         this.log.info('Find all pets');
@@ -56,5 +58,4 @@ export class PetService {
         await this.petRepository.delete(id);
         return;
     }
-
 }

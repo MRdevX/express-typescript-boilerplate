@@ -3,7 +3,6 @@ import { validate } from 'class-validator';
 import { User } from '../../../src/api/models/User';
 
 describe('UserValidations', () => {
-
     test('User should always have a first name', async (done) => {
         const user = new User();
         const errorsOne = await validate(user);
@@ -42,5 +41,4 @@ describe('UserValidations', () => {
         expect(errors.length).toEqual(0);
         done();
     });
-
 });
