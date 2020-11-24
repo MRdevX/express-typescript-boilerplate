@@ -5,7 +5,7 @@ import * as uuid from 'uuid';
 import { User } from '../../../src/api/models/User';
 
 export class CreateBruce implements Seeder {
-    run(factory: Factory, connection: Connection): Promise<void> {
+    public run(factory: Factory, connection: Connection): Promise<void> {
         throw new Error('Method not implemented.');
     }
 

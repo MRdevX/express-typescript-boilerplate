@@ -5,12 +5,12 @@ import { banner } from './lib/banner';
 import { Logger } from './lib/logger';
 import { eventDispatchLoader } from './loaders/eventDispatchLoader';
 import { expressLoader } from './loaders/expressLoader';
-import { graphqlLoader } from './loaders/graphqlLoader';
-import { homeLoader } from './loaders/homeLoader';
+// import { graphqlLoader } from './loaders/graphqlLoader';
+// import { homeLoader } from './loaders/homeLoader';
 import { iocLoader } from './loaders/iocLoader';
 import { monitorLoader } from './loaders/monitorLoader';
-import { publicLoader } from './loaders/publicLoader';
-import { swaggerLoader } from './loaders/swaggerLoader';
+// import { publicLoader } from './loaders/publicLoader';
+// import { swaggerLoader } from './loaders/swaggerLoader';
 import { typeormLoader } from './loaders/typeormLoader';
 import { winstonLoader } from './loaders/winstonLoader';
 
@@ -35,11 +35,11 @@ bootstrapMicroframework({
         eventDispatchLoader,
         typeormLoader,
         expressLoader,
-        swaggerLoader,
+        // swaggerLoader,
         monitorLoader,
-        homeLoader,
-        publicLoader,
-        graphqlLoader,
+        // homeLoader,
+        // publicLoader,
+        // graphqlLoader,
     ],
 })
     .then(() => banner(log))

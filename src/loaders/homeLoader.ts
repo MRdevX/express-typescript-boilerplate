@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import * as express from 'express';
 import {
     MicroframeworkLoader,
     MicroframeworkSettings,
@@ -11,7 +11,7 @@ export const homeLoader: MicroframeworkLoader = (settings: MicroframeworkSetting
         const expressApp = settings.getData('express_app');
         expressApp.get(
             env.app.routePrefix,
-            (req: Request, res: Response) => {
+            (req: express.Request, res: express.Response) => {
                 return res.json({
                     name: env.app.name,
                     version: env.app.version,
