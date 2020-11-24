@@ -1,5 +1,8 @@
 import * as express from 'express';
-import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
+import {
+    MicroframeworkLoader,
+    MicroframeworkSettings,
+} from 'src/utils/framework';
 import * as path from 'path';
 import favicon from 'serve-favicon';
 

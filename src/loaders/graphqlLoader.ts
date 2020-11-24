@@ -1,6 +1,9 @@
 import * as express from 'express';
 import GraphQLHTTP from 'express-graphql';
-import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
+import {
+    MicroframeworkLoader,
+    MicroframeworkSettings,
+} from 'src/utils/framework';
 import * as path from 'path';
 import { buildSchema } from 'type-graphql';
 import Container from 'typedi';

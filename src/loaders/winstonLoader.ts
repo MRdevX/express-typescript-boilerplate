@@ -1,4 +1,7 @@
-import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
+import {
+    MicroframeworkLoader,
+    MicroframeworkSettings,
+} from 'src/utils/framework';
 import { configure, format, transports } from 'winston';
 
 import { env } from '../env';
