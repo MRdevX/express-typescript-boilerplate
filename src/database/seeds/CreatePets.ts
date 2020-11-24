@@ -5,7 +5,7 @@ import { Pet } from '../../../src/api/models/Pet';
 import { User } from '../../../src/api/models/User';
 
 export class CreatePets implements Seeder {
-    run(factory: Factory, connection: Connection): Promise<void> {
+    public run(factory: Factory, connection: Connection): Promise<void> {
         throw new Error('Method not implemented.');
     }
 
@@ -18,5 +18,4 @@ export class CreatePets implements Seeder {
             return await em.save(user);
         });
     }
-
 }
